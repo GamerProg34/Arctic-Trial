@@ -14,7 +14,9 @@ public class SpawnObject : MonoBehaviour
     void Start()
     {
         int rand = Random.Range(0, gameObjects.Length);  //the number that is held by 'rand' will be the index of the tile sprite in 'gameObjects' to be used
-        Instantiate(gameObjects[rand], transform.position, Quaternion.identity); //a random tile sprite from 'gameObjects' is instantiated at the position of the GameObject this script is attached to
+        GameObject instance = (GameObject)Instantiate(gameObjects[rand], transform.position, Quaternion.identity); //a random tile sprite from 'gameObjects' is instantiated at the position of the GameObject this script is attached to
+        instance.transform.parent = transform;  // setting 'instance' to its parent's value ensures that when an room is destroyed in the hierarchy, its children will be destroyed as well, eliminating any 
+                                                // dead ends in the critical path
     }
 
     // Update is called once per frame
